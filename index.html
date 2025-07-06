@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Master</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
         :root {
             --bg-color: #000000;
@@ -355,23 +356,11 @@
         html {
             scroll-behavior: smooth;
         }
-
-        /* Animation for elements on scroll */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navigation">
+    <nav class="navigation" data-aos="fade-down" data-aos-duration="800" data-aos-delay="0">
         <div class="nav-container">
             <a href="#home" class="logo">Chess Master</a>
             <ul class="nav-links">
@@ -384,53 +373,53 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="chess-board-overlay"></div>
+        <div class="chess-board-overlay" data-aos="fade-in" data-aos-duration="2000" data-aos-delay="500"></div>
         <div class="chess-background">
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-            <div class="chess-piece">♖</div>
-            <div class="chess-piece">♗</div>
-            <div class="chess-piece">♘</div>
-            <div class="chess-piece">♙</div>
+            <div class="chess-piece" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="800">♔</div>
+            <div class="chess-piece" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1000">♕</div>
+            <div class="chess-piece" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1200">♖</div>
+            <div class="chess-piece" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1400">♗</div>
+            <div class="chess-piece" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1600">♘</div>
+            <div class="chess-piece" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="1800">♙</div>
         </div>
         <div class="hero-content">
-            <h1 class="hero-name">YOUR NAME</h1>
-            <p class="hero-subtitle">Chess Player & Strategist</p>
+            <h1 class="hero-name" data-aos="fade-up" data-aos-duration="1000">YOUR NAME</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">Chess Player & Strategist</p>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section fade-in">
-        <h2 class="section-title">About</h2>
+    <section id="about" class="section">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">About</h2>
         <div class="about-content">
-            <div class="about-text">
+            <div class="about-text" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
                 <p>Passionate chess player dedicated to the art of strategic thinking and tactical precision. With years of experience in competitive play, I've developed a deep understanding of chess theory and practical application.</p>
                 <br>
                 <p>My approach to chess combines classical principles with modern innovations, always seeking to improve and push the boundaries of my understanding. Every game is an opportunity to learn, grow, and demonstrate the beauty of chess.</p>
             </div>
-            <div class="about-image">
+            <div class="about-image" data-aos="fade-left" data-aos-duration="800" data-aos-delay="400">
                 <img src="https://via.placeholder.com/400x400/000000/ffffff?text=YOUR+PHOTO" alt="Chess Player" class="chess-portrait">
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section id="stats" class="stats fade-in">
-        <h2 class="section-title">Statistics</h2>
+    <section id="stats" class="stats">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Statistics</h2>
         <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
                 <div class="stat-number">1850</div>
                 <div class="stat-label">Current Rating</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
                 <div class="stat-number">250+</div>
                 <div class="stat-label">Games Played</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
                 <div class="stat-number">75%</div>
                 <div class="stat-label">Win Rate</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" data-aos="fade-up" data-aos-duration="600" data-aos-delay="400">
                 <div class="stat-number">15</div>
                 <div class="stat-label">Tournament Wins</div>
             </div>
@@ -438,34 +427,25 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact fade-in">
-        <h2 class="section-title">Get In Touch</h2>
-        <p>Ready for a challenge? Let's play a game or discuss chess strategy.</p>
-        <a href="mailto:your.email@example.com" class="contact-button">Contact Me</a>
+    <section id="contact" class="contact">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Get In Touch</h2>
+        <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">Ready for a challenge? Let's play a game or discuss chess strategy.</p>
+        <a href="mailto:your.email@example.com" class="contact-button" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">Contact Me</a>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer data-aos="fade-up" data-aos-duration="600">
         <p>&copy; 2025 Chess Master. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Smooth scrolling animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: false,
+            offset: 100,
+            easing: 'ease-out-cubic'
         });
 
         // Navigation background on scroll
