@@ -567,9 +567,24 @@
             scroll-behavior: smooth;
         }
 
-        /* Prevent horizontal overflow */
+        /* Prevent horizontal overflow and hide scrollbar */
         body, html {
             overflow-x: hidden;
+        }
+
+        /* Hide scrollbar for webkit browsers */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for Firefox */
+        body {
+            scrollbar-width: none;
+        }
+
+        /* Hide scrollbar for IE and Edge */
+        body {
+            -ms-overflow-style: none;
         }
     </style>
 </head>
