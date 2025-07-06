@@ -116,7 +116,7 @@
             opacity: 0.8;
         }
 
-        /* Chess pieces background - Responsive positioning */
+        /* Chess pieces background */
         .chess-background {
             position: absolute;
             top: 0;
@@ -132,33 +132,42 @@
             font-size: 8rem;
             color: var(--text-color);
             animation: float 6s ease-in-out infinite;
-            user-select: none;
-            pointer-events: none;
         }
 
-        /* Base responsive sizing */
-        @media (min-width: 1400px) {
-            .chess-piece {
-                font-size: 9rem;
-            }
+        .chess-piece:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
         }
 
-        @media (min-width: 1024px) and (max-width: 1399px) {
-            .chess-piece {
-                font-size: 8rem;
-            }
+        .chess-piece:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
         }
 
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .chess-piece {
-                font-size: 6rem;
-            }
+        .chess-piece:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 2s;
         }
 
-        @media (max-width: 767px) {
-            .chess-piece {
-                font-size: 4rem;
-            }
+        .chess-piece:nth-child(4) {
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        .chess-piece:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+
+        .chess-piece:nth-child(6) {
+            top: 50%;
+            right: 5%;
+            animation-delay: 5s;
         }
 
         @keyframes float {
@@ -336,6 +345,10 @@
             .nav-links {
                 display: none;
             }
+
+            .chess-piece {
+                font-size: 4rem;
+            }
         }
 
         /* Smooth scroll */
@@ -437,101 +450,6 @@
     </footer>
 
     <script>
-        // Chess piece management
-        const chessPieces = ['♔', '♕', '♖', '♗', '♘', '♙', '♚', '♛', '♜', '♝', '♞', '♟'];
-        let currentPieces = [];
-
-        function createChessPieces() {
-            const chessBackground = document.getElementById('chess-background');
-            const windowWidth = window.innerWidth;
-            
-            // Clear existing pieces
-            chessBackground.innerHTML = '';
-            currentPieces = [];
-
-            let pieceCount, positions;
-
-            if (windowWidth >= 1600) {
-                // Ultra-wide screens: 12 pieces
-                pieceCount = 12;
-                positions = [
-                    { top: '10%', left: '5%' },
-                    { top: '15%', left: '15%' },
-                    { top: '20%', right: '15%' },
-                    { top: '10%', right: '5%' },
-                    { top: '45%', left: '3%' },
-                    { top: '35%', right: '3%' },
-                    { bottom: '20%', left: '15%' },
-                    { bottom: '10%', right: '5%' },
-                    { bottom: '15%', right: '15%' },
-                    { bottom: '10%', left: '5%' },
-                    { top: '65%', left: '2%' },
-                    { top: '55%', right: '2%' }
-                ];
-            } else if (windowWidth >= 1200) {
-                // Desktop screens: 8 pieces
-                pieceCount = 8;
-                positions = [
-                    { top: '12%', left: '6%' },
-                    { top: '20%', right: '10%' },
-                    { top: '45%', left: '4%' },
-                    { top: '35%', right: '4%' },
-                    { bottom: '20%', left: '10%' },
-                    { bottom: '12%', right: '6%' },
-                    { top: '65%', left: '3%' },
-                    { top: '55%', right: '3%' }
-                ];
-            } else if (windowWidth >= 768) {
-                // Tablet screens: 6 pieces
-                pieceCount = 6;
-                positions = [
-                    { top: '15%', left: '8%' },
-                    { top: '25%', right: '12%' },
-                    { top: '50%', left: '5%' },
-                    { top: '40%', right: '5%' },
-                    { bottom: '25%', left: '12%' },
-                    { bottom: '15%', right: '8%' }
-                ];
-            } else {
-                // Mobile screens: 4 pieces
-                pieceCount = 4;
-                positions = [
-                    { top: '18%', left: '8%' },
-                    { top: '28%', right: '10%' },
-                    { bottom: '28%', left: '10%' },
-                    { bottom: '18%', right: '8%' }
-                ];
-            }
-
-            // Create and position pieces
-            for (let i = 0; i < pieceCount; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'chess-piece';
-                piece.textContent = chessPieces[i];
-                piece.style.animationDelay = `${i * 0.5}s`;
-                
-                // Apply position
-                const pos = positions[i];
-                if (pos.top) piece.style.top = pos.top;
-                if (pos.bottom) piece.style.bottom = pos.bottom;
-                if (pos.left) piece.style.left = pos.left;
-                if (pos.right) piece.style.right = pos.right;
-                
-                chessBackground.appendChild(piece);
-                currentPieces.push(piece);
-            }
-        }
-
-        // Initialize pieces on load
-        document.addEventListener('DOMContentLoaded', createChessPieces);
-
-        // Update pieces on window resize (debounced)
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(createChessPieces, 250);
-        });
-
         // Smooth scrolling animation on scroll
         const observerOptions = {
             threshold: 0.1,
