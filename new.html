@@ -27,6 +27,31 @@
             overflow-x: hidden;
         }
 
+        /* Chess Background Component */
+        .chess-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .chess-piece {
+            position: absolute;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.06);
+            animation: float 8s ease-in-out infinite;
+            user-select: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
         /* Navigation */
         .navigation {
             position: fixed;
@@ -121,70 +146,6 @@
             margin: 0 auto 3rem;
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
-        }
-
-        /* Chess pieces background - Global */
-        .chess-pieces {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.06;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .chess-piece {
-            position: absolute;
-            font-size: 4rem;
-            color: white;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        /* Hero section pieces - More evenly distributed */
-        .hero .chess-piece:nth-child(1) { top: 15%; left: 15%; animation-delay: 0s; }
-        .hero .chess-piece:nth-child(2) { top: 25%; left: 35%; animation-delay: 1s; }
-        .hero .chess-piece:nth-child(3) { top: 20%; left: 55%; animation-delay: 2s; }
-        .hero .chess-piece:nth-child(4) { top: 30%; left: 75%; animation-delay: 3s; }
-        .hero .chess-piece:nth-child(5) { top: 60%; left: 10%; animation-delay: 4s; }
-        .hero .chess-piece:nth-child(6) { top: 70%; left: 30%; animation-delay: 5s; }
-        .hero .chess-piece:nth-child(7) { top: 65%; left: 50%; animation-delay: 6s; }
-        .hero .chess-piece:nth-child(8) { top: 75%; left: 70%; animation-delay: 7s; }
-        .hero .chess-piece:nth-child(9) { top: 80%; left: 85%; animation-delay: 8s; }
-        .hero .chess-piece:nth-child(10) { top: 85%; left: 20%; animation-delay: 9s; }
-        .hero .chess-piece:nth-child(11) { top: 10%; left: 85%; animation-delay: 10s; }
-        .hero .chess-piece:nth-child(12) { top: 85%; left: 50%; animation-delay: 11s; }
-
-        /* About section pieces - More evenly distributed */
-        .about-pieces .chess-piece:nth-child(1) { top: 10%; left: 20%; animation-delay: 1s; }
-        .about-pieces .chess-piece:nth-child(2) { top: 20%; left: 40%; animation-delay: 2s; }
-        .about-pieces .chess-piece:nth-child(3) { top: 15%; left: 60%; animation-delay: 3s; }
-        .about-pieces .chess-piece:nth-child(4) { top: 75%; left: 25%; animation-delay: 4s; }
-        .about-pieces .chess-piece:nth-child(5) { top: 80%; left: 45%; animation-delay: 5s; }
-        .about-pieces .chess-piece:nth-child(6) { top: 85%; left: 65%; animation-delay: 6s; }
-
-        /* Achievements section pieces - More evenly distributed */
-        .achievements-pieces .chess-piece:nth-child(1) { top: 10%; left: 15%; animation-delay: 2s; }
-        .achievements-pieces .chess-piece:nth-child(2) { top: 15%; left: 35%; animation-delay: 3s; }
-        .achievements-pieces .chess-piece:nth-child(3) { top: 20%; left: 55%; animation-delay: 4s; }
-        .achievements-pieces .chess-piece:nth-child(4) { top: 25%; left: 75%; animation-delay: 5s; }
-        .achievements-pieces .chess-piece:nth-child(5) { top: 75%; left: 20%; animation-delay: 6s; }
-        .achievements-pieces .chess-piece:nth-child(6) { top: 80%; left: 40%; animation-delay: 7s; }
-        .achievements-pieces .chess-piece:nth-child(7) { top: 85%; left: 60%; animation-delay: 8s; }
-        .achievements-pieces .chess-piece:nth-child(8) { top: 90%; left: 80%; animation-delay: 9s; }
-
-        /* Contact section pieces - More evenly distributed */
-        .contact-pieces .chess-piece:nth-child(1) { top: 15%; left: 25%; animation-delay: 1s; }
-        .contact-pieces .chess-piece:nth-child(2) { top: 20%; left: 50%; animation-delay: 2s; }
-        .contact-pieces .chess-piece:nth-child(3) { top: 25%; left: 75%; animation-delay: 3s; }
-        .contact-pieces .chess-piece:nth-child(4) { top: 70%; left: 20%; animation-delay: 4s; }
-        .contact-pieces .chess-piece:nth-child(5) { top: 75%; left: 45%; animation-delay: 5s; }
-        .contact-pieces .chess-piece:nth-child(6) { top: 80%; left: 70%; animation-delay: 6s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
         }
 
         /* Sections */
@@ -472,6 +433,11 @@
     </style>
 </head>
 <body>
+    <!-- Chess Background Component -->
+    <div class="chess-background" id="chessBackground">
+        <!-- Chess pieces will be generated here by JavaScript -->
+    </div>
+
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
@@ -487,21 +453,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="chess-pieces">
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-            <div class="chess-piece">♖</div>
-            <div class="chess-piece">♗</div>
-            <div class="chess-piece">♘</div>
-            <div class="chess-piece">♙</div>
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-            <div class="chess-piece">♖</div>
-            <div class="chess-piece">♗</div>
-            <div class="chess-piece">♘</div>
-            <div class="chess-piece">♙</div>
-        </div>
-        
         <div class="hero-content">
             <h1 class="hero-name" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">INBHAVENKAT</h1>
             <p class="hero-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">Chess Master</p>
@@ -516,15 +467,6 @@
 
     <!-- About Section -->
     <section id="about" class="section">
-        <div class="chess-pieces about-pieces">
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-            <div class="chess-piece">♖</div>
-            <div class="chess-piece">♗</div>
-            <div class="chess-piece">♘</div>
-            <div class="chess-piece">♙</div>
-        </div>
-        
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">About Me</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
             Dedicated to mastering the art of chess through strategic thinking, continuous learning, and competitive play.
@@ -547,17 +489,6 @@
 
     <!-- Achievements Section -->
     <section id="achievements" class="section">
-        <div class="chess-pieces achievements-pieces">
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-            <div class="chess-piece">♖</div>
-            <div class="chess-piece">♗</div>
-            <div class="chess-piece">♘</div>
-            <div class="chess-piece">♙</div>
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-        </div>
-        
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Achievements</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
             Milestones and accomplishments in my chess journey.
@@ -586,15 +517,6 @@
 
     <!-- Contact Section -->
     <section id="contact" class="section">
-        <div class="chess-pieces contact-pieces">
-            <div class="chess-piece">♔</div>
-            <div class="chess-piece">♕</div>
-            <div class="chess-piece">♖</div>
-            <div class="chess-piece">♗</div>
-            <div class="chess-piece">♘</div>
-            <div class="chess-piece">♙</div>
-        </div>
-        
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Get In Touch</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
             Ready to discuss chess, arrange a game, or explore coaching opportunities? Let's connect.
@@ -625,6 +547,113 @@
     <!-- Load AOS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        // Chess piece Unicode characters
+        const chessPieces = ['♔', '♕', '♖', '♗', '♘', '♙', '♚', '♛', '♜', '♝', '♞', '♟'];
+        let placedPieces = [];
+
+        // Function to check if a position overlaps with existing pieces
+        function isPositionOccupied(x, y, minDistance = 80) {
+            return placedPieces.some(piece => {
+                const distance = Math.sqrt(
+                    Math.pow(x - piece.x, 2) + Math.pow(y - piece.y, 2)
+                );
+                return distance < minDistance;
+            });
+        }
+
+        // Function to get a non-overlapping position
+        function getValidPosition(minDistance = 80) {
+            const maxAttempts = 100;
+            let attempts = 0;
+            
+            while (attempts < maxAttempts) {
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                if (!isPositionOccupied(x, y, minDistance)) {
+                    return { x, y };
+                }
+                attempts++;
+            }
+            
+            // If we can't find a non-overlapping position, return a random one
+            return { x: Math.random() * 100, y: Math.random() * 100 };
+        }
+
+        // Function to create chess pieces that cover the entire scrollable area
+        function createChessPieces(count = 120) {
+            const background = document.getElementById('chessBackground');
+            background.innerHTML = ''; // Clear existing pieces
+            placedPieces = []; // Reset placed pieces array
+            
+            // Calculate total document height for piece distribution
+            const documentHeight = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            
+            // Set background height to cover entire document
+            background.style.height = documentHeight + 'px';
+
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'chess-piece';
+                
+                // Random chess piece
+                piece.textContent = chessPieces[Math.floor(Math.random() * chessPieces.length)];
+                
+                // Get a valid position that doesn't overlap
+                const position = getValidPosition();
+                piece.style.left = position.x + '%';
+                
+                // Distribute pieces across the entire document height
+                const yPosition = (position.y / 100) * documentHeight;
+                piece.style.top = yPosition + 'px';
+                
+                // Store the position for overlap checking
+                placedPieces.push({ 
+                    x: position.x, 
+                    y: (yPosition / documentHeight) * 100 
+                });
+                
+                // Random animation delay
+                piece.style.animationDelay = Math.random() * 8 + 's';
+                
+                // Random animation duration variation
+                const baseDuration = 8;
+                const variation = (Math.random() - 0.5) * 4; // -2 to +2 seconds
+                piece.style.animationDuration = (baseDuration + variation) + 's';
+                
+                // Random size variation
+                const baseSize = 4;
+                const sizeVariation = (Math.random() - 0.5) * 2; // -1 to +1 rem
+                piece.style.fontSize = (baseSize + sizeVariation) + 'rem';
+                
+                // Random animation direction
+                if (Math.random() > 0.5) {
+                    piece.style.animationDirection = 'reverse';
+                }
+                
+                background.appendChild(piece);
+            }
+        }
+
+        // Function to update chess background height when content changes
+        function updateBackgroundHeight() {
+            const background = document.getElementById('chessBackground');
+            const documentHeight = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            background.style.height = documentHeight + 'px';
+        }
+
         // Initialize AOS
         AOS.init({
             duration: 800,
@@ -632,6 +661,14 @@
             once: true,
             offset: 100,
             delay: 0
+        });
+
+        // Initialize chess pieces on page load
+        window.addEventListener('load', () => {
+            // Wait a bit for the page to fully render
+            setTimeout(() => {
+                createChessPieces(120);
+            }, 100);
         });
 
         // Smooth scrolling for navigation links
@@ -656,20 +693,38 @@
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
         });
 
-        // Parallax effect for hero section
+        // Enhanced parallax effect with bounds checking
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            const chesspieces = document.querySelector('.chess-pieces');
+            const chessBackground = document.getElementById('chessBackground');
             
-            if (hero && chesspieces) {
-                chesspieces.style.transform = `translateY(${scrolled * 0.5}px)`;
+            if (chessBackground) {
+                // Subtle parallax effect that doesn't break the layout
+                const parallaxOffset = scrolled * 0.2;
+                chessBackground.style.transform = `translateY(${parallaxOffset}px)`;
             }
         });
 
-        // Refresh AOS on window resize
+        // Regenerate pieces on window resize for better distribution
         window.addEventListener('resize', () => {
-            AOS.refresh();
+            // Debounce the resize event
+            clearTimeout(window.resizeTimeout);
+            window.resizeTimeout = setTimeout(() => {
+                createChessPieces(120);
+                AOS.refresh();
+            }, 250);
+        });
+
+        // Update background height when DOM content changes
+        const observer = new MutationObserver(() => {
+            updateBackgroundHeight();
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style']
         });
     </script>
 </body>
