@@ -11,6 +11,9 @@
             --bg-color: #000000;
             --text-color: #ffffff;
             --accent-color: #ffffff;
+            --glass-light: rgba(255, 255, 255, 0.15);
+            --glass-medium: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -28,7 +31,7 @@
             width: 100%;
         }
 
-        /* Chess Background Component */
+        /* Chess Background Component with Enhanced Parallax */
         .chess-background {
             position: fixed;
             top: 0;
@@ -38,6 +41,7 @@
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
+            will-change: transform;
         }
 
         .chess-piece {
@@ -46,12 +50,23 @@
             color: rgba(255, 255, 255, 0.06);
             animation: float 8s ease-in-out infinite;
             user-select: none;
+            filter: blur(0.5px);
+            will-change: transform;
+            transform-origin: center;
         }
 
+        /* Enhanced floating animation with depth */
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0px) scale(1); }
+            25% { transform: translateY(-15px) scale(1.05); }
+            50% { transform: translateY(-25px) scale(1.1); }
+            75% { transform: translateY(-15px) scale(1.05); }
         }
+
+        /* Parallax layers with depth effect */
+        .parallax-layer-1 { z-index: 2; }
+        .parallax-layer-2 { z-index: 3; }
+        .parallax-layer-3 { z-index: 4; }
 
         /* Navigation */
         .navigation {
@@ -59,10 +74,11 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px) saturate(180%);
+            will-change: transform;
         }
 
         .nav-container {
@@ -82,6 +98,13 @@
             letter-spacing: 2px;
             color: var(--text-color);
             text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+            letter-spacing: 4px;
         }
 
         .nav-links {
@@ -97,11 +120,28 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.9rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
-            color: #999;
+            color: #ccc;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
         /* Mobile Navigation */
@@ -113,6 +153,12 @@
             font-size: 1.5rem;
             cursor: pointer;
             z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
         }
 
         .mobile-menu {
@@ -121,11 +167,11 @@
             top: 100%;
             left: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .mobile-menu.active {
@@ -143,6 +189,24 @@
             padding: 1rem 2rem;
             transition: all 0.3s ease;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .mobile-menu a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu a:hover::before {
+            transform: scaleX(1);
         }
 
         .mobile-menu a:hover {
@@ -155,7 +219,7 @@
             border-bottom: none;
         }
 
-        /* Hero Section */
+        /* Hero Section with Enhanced Effects */
         .hero {
             height: 100vh;
             display: flex;
@@ -172,6 +236,7 @@
             position: relative;
             width: 100%;
             max-width: 1200px;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.1));
         }
 
         .hero-name {
@@ -181,12 +246,20 @@
             letter-spacing: -3px;
             position: relative;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: linear-gradient(135deg, #ffffff, #cccccc, #aaaaaa);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             word-break: break-word;
             hyphens: auto;
+            animation: gradientShift 6s ease infinite;
+            text-shadow: 0 0 60px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero-title {
@@ -196,6 +269,7 @@
             letter-spacing: clamp(2px, 2vw, 8px);
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.7s both;
         }
 
         .hero-description {
@@ -205,9 +279,21 @@
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
             padding: 0 1rem;
+            animation: fadeInUp 1s ease 0.9s both;
         }
 
-        /* Sections */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections with Enhanced Glass Effect */
         .section {
             padding: 4rem 1.5rem;
             max-width: 1200px;
@@ -225,6 +311,10 @@
             text-align: center;
             position: relative;
             z-index: 10;
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .section-subtitle {
@@ -258,24 +348,35 @@
         .about-image {
             position: relative;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 15px;
             aspect-ratio: 1/1;
             width: 100%;
+            background: var(--glass-medium);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-light);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 32px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .about-image:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 0 50px rgba(255, 255, 255, 0.15);
+            transform: translateY(-10px);
         }
 
         .about-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%);
-            transition: filter 0.3s ease;
+            filter: grayscale(100%) brightness(1.1);
+            transition: all 0.5s ease;
         }
 
         .about-image:hover img {
-            filter: grayscale(0%);
+            filter: grayscale(30%) brightness(1.2) contrast(1.1);
+            transform: scale(1.05);
         }
 
-        /* Achievements Grid */
+        /* Achievements Grid with Liquid Glass */
         .achievements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -286,36 +387,76 @@
         }
 
         .achievement-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 10px;
+            background: linear-gradient(135deg, var(--glass-light), var(--glass-medium));
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, background 0.3s ease;
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-light);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             z-index: 10;
+            overflow: hidden;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .achievement-card:hover::before {
+            left: 100%;
         }
 
         .achievement-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-15px) scale(1.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                        inset 0 0 40px rgba(255, 255, 255, 0.15),
+                        0 0 40px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .achievement-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        .achievement-card:hover .achievement-icon {
+            transform: scale(1.2) rotateY(360deg);
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
         }
 
         .achievement-title {
             font-size: clamp(1.2rem, 3vw, 1.5rem);
             font-weight: 700;
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, #d0d0d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .achievement-description {
             color: rgba(255, 255, 255, 0.7);
             font-size: clamp(0.8rem, 2vw, 0.9rem);
+            transition: color 0.3s ease;
+        }
+
+        .achievement-card:hover .achievement-description {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Contact Section */
@@ -340,17 +481,40 @@
             gap: 1rem;
             width: 100%;
             max-width: 250px;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--glass-medium), var(--glass-dark));
+            backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid var(--glass-light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, var(--glass-light), var(--glass-medium));
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3),
+                        inset 0 0 30px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .contact-text {
@@ -359,29 +523,51 @@
             word-break: break-word;
         }
 
-        /* CTA Button */
+        /* CTA Button with Enhanced Glass */
         .cta-button {
             display: inline-block;
-            background-color: var(--text-color);
-            color: var(--bg-color);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+            color: var(--text-color);
             font-weight: 700;
             font-size: clamp(0.9rem, 3vw, 1.2rem);
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            letter-spacing: 1.5px;
+            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             margin-top: 2rem;
             position: relative;
             z-index: 10;
             text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            background-color: #cccccc;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.25));
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), 
+                        inset 0 0 30px rgba(255, 255, 255, 0.15),
+                        0 0 30px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Responsive Design */
@@ -422,7 +608,6 @@
             }
         }
         
-        /* Additional breakpoint for very small screens */
         @media (max-width: 480px) {
             .chess-piece {
                 font-size: 1.5rem;
@@ -451,10 +636,11 @@
             
             .contact-item {
                 max-width: 100%;
+                padding: 1.5rem;
             }
             
             .cta-button {
-                padding: 0.7rem 1.2rem;
+                padding: 0.8rem 1.5rem;
                 width: 100%;
                 max-width: 250px;
             }
@@ -533,7 +719,6 @@
             transform: scale(1);
         }
 
-        /* AOS animation for navigation - fade down from top */
         [data-aos="fade-down"] {
             opacity: 0;
             transform: translateY(-100px);
@@ -545,19 +730,6 @@
             transform: translateY(0);
         }
 
-        /* AOS animation for chess pieces background - fade in effect */
-        [data-aos="fade-in-chess-piece"] {
-            opacity: 0;
-            transform: translateY(30px) scale(0.6);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        [data-aos="fade-in-chess-piece"].aos-animate {
-            opacity: 0.06;
-            transform: translateY(0) scale(1);
-        }
-
-        /* Additional fade variants for chess pieces */
         [data-aos="fade-up-piece"] {
             opacity: 0;
             transform: translateY(50px) scale(0.7);
@@ -569,40 +741,6 @@
             transform: translateY(0) scale(1);
         }
 
-        [data-aos="fade-left-piece"] {
-            opacity: 0;
-            transform: translateX(-50px) scale(0.7);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        [data-aos="fade-left-piece"].aos-animate {
-            opacity: 0.06;
-            transform: translateX(0) scale(1);
-        }
-
-        [data-aos="fade-right-piece"] {
-            opacity: 0;
-            transform: translateX(50px) scale(0.7);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        [data-aos="fade-right-piece"].aos-animate {
-            opacity: 0.06;
-            transform: translateX(0) scale(1);
-        }
-
-        [data-aos="zoom-in-piece"] {
-            opacity: 0;
-            transform: scale(0.3);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        [data-aos="zoom-in-piece"].aos-animate {
-            opacity: 0.06;
-            transform: scale(1);
-        }
-
-        /* Mobile menu overlay for closing when clicking outside */
         .mobile-menu-overlay {
             display: none;
             position: fixed;
@@ -620,15 +758,10 @@
     </style>
 </head>
 <body>
-    <!-- Mobile menu overlay -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
-    <!-- Chess Background Component -->
-    <div class="chess-background" id="chessBackground">
-        <!-- Chess pieces will be generated here by JavaScript -->
-    </div>
+    <div class="chess-background" id="chessBackground"></div>
 
-    <!-- Navigation -->
     <nav class="navigation" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">
         <div class="nav-container">
             <a href="#home" class="logo">Chess Master</a>
@@ -639,7 +772,6 @@
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
             
-            <!-- Mobile dropdown menu -->
             <div class="mobile-menu" id="mobileMenu">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -649,7 +781,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="hero-name" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">INBHAVENKAT</h1>
@@ -663,7 +794,6 @@
         <div class="scroll-indicator" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1300">Scroll Down</div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="section">
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">About Me</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
@@ -685,7 +815,6 @@
         </div>
     </section>
 
-    <!-- Achievements Section -->
     <section id="achievements" class="section">
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Achievements</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
@@ -702,7 +831,7 @@
             <div class="achievement-card" data-aos="fade-up-chess" data-aos-duration="800" data-aos-delay="300">
                 <div class="achievement-icon">🧠</div>
                 <h3 class="achievement-title">Years of valuable Experience</h3>
-                <p class="achievement-description">Wether I am a player, coach, team captain, or team player, I am experienced and confident</p>
+                <p class="achievement-description">Whether I am a player, coach, team captain, or team player, I am experienced and confident</p>
             </div>
             
             <div class="achievement-card" data-aos="fade-up-chess" data-aos-duration="800" data-aos-delay="400">
@@ -713,7 +842,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section">
         <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Get In Touch</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
@@ -742,24 +870,18 @@
         </div>
     </section>
 
-    <!-- Load AOS library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Chess piece Unicode characters
         const chessPieces = ['♔', '♕', '♖', '♗', '♘', '♙', '♚', '♛', '♜', '♝', '♞', '♟'];
         let placedPieces = [];
 
-        // AOS animation types for chess pieces
         const pieceAnimations = [
-            'fade-in-chess-piece',
             'fade-up-piece',
-            'fade-left-piece',
-            'fade-right-piece',
-            'zoom-in-piece'
+            'fade-up-piece',
+            'fade-up-piece'
         ];
 
-        // Function to check if a position overlaps with existing pieces
-        function isPositionOccupied(x, y, minDistance = 80) {
+        function isPositionOccupied(x, y, minDistance = 100) {
             return placedPieces.some(piece => {
                 const distance = Math.sqrt(
                     Math.pow(x - piece.x, 2) + Math.pow(y - piece.y, 2)
@@ -768,8 +890,7 @@
             });
         }
 
-        // Function to get a non-overlapping position
-        function getValidPosition(minDistance = 80) {
+        function getValidPosition(minDistance = 100) {
             const maxAttempts = 100;
             let attempts = 0;
             
@@ -783,17 +904,14 @@
                 attempts++;
             }
             
-            // If we can't find a non-overlapping position, return a random one
             return { x: Math.random() * 100, y: Math.random() * 100 };
         }
 
-        // Function to create chess pieces that cover the entire scrollable area
         function createChessPieces() {
             const background = document.getElementById('chessBackground');
-            background.innerHTML = ''; // Clear existing pieces
-            placedPieces = []; // Reset placed pieces array
+            background.innerHTML = '';
+            placedPieces = [];
             
-            // Calculate total document height for piece distribution
             const documentHeight = Math.max(
                 document.body.scrollHeight,
                 document.body.offsetHeight,
@@ -802,58 +920,47 @@
                 document.documentElement.offsetHeight
             );
             
-            // Set background height to cover entire document
             background.style.height = documentHeight + 'px';
 
-            // Adjust piece count based on screen size
-            let pieceCount = 120; // Default for desktop
+            let pieceCount = 150;
             if (window.innerWidth <= 768) {
-                pieceCount = 60; // Reduce for tablets
+                pieceCount = 80;
             }
             if (window.innerWidth <= 480) {
-                pieceCount = 30; // Further reduce for phones
+                pieceCount = 40;
             }
 
             for (let i = 0; i < pieceCount; i++) {
                 const piece = document.createElement('div');
                 piece.className = 'chess-piece';
                 
-                // Add random AOS animation to each piece
                 const randomAnimation = pieceAnimations[Math.floor(Math.random() * pieceAnimations.length)];
                 piece.setAttribute('data-aos', randomAnimation);
-                piece.setAttribute('data-aos-duration', (1000 + Math.random() * 800) + ''); // 1000-1800ms
-                piece.setAttribute('data-aos-delay', (Math.random() * 2000) + ''); // 0-2000ms delay
+                piece.setAttribute('data-aos-duration', (1200 + Math.random() * 1000) + '');
+                piece.setAttribute('data-aos-delay', (Math.random() * 2500) + '');
                 piece.setAttribute('data-aos-once', 'true');
                 piece.setAttribute('data-aos-easing', 'ease-out');
                 
-                // Random chess piece
                 piece.textContent = chessPieces[Math.floor(Math.random() * chessPieces.length)];
                 
-                // Get a valid position that doesn't overlap
                 const position = getValidPosition();
                 piece.style.left = position.x + '%';
                 
-                // Distribute pieces across the entire document height
                 const yPosition = (position.y / 100) * documentHeight;
                 piece.style.top = yPosition + 'px';
                 
-                // Store the position for overlap checking
                 placedPieces.push({ 
                     x: position.x, 
                     y: (yPosition / documentHeight) * 100 
                 });
                 
-                // Random animation delay for the floating effect
-                const floatDelay = Math.random() * 8;
+                const floatDelay = Math.random() * 10;
                 piece.style.setProperty('--float-delay', floatDelay + 's');
                 
-                // Random animation duration variation
-                const baseDuration = 8;
-                const variation = (Math.random() - 0.5) * 4; // -2 to +2 seconds
-                piece.style.animationDuration = (baseDuration + variation) + 's';
+                const baseDuration = 10 + Math.random() * 6;
+                piece.style.animationDuration = baseDuration + 's';
                 piece.style.animationDelay = floatDelay + 's';
                 
-                // Random size variation - smaller on mobile
                 let baseSize = 4;
                 if (window.innerWidth <= 768) {
                     baseSize = 2.5;
@@ -862,10 +969,9 @@
                     baseSize = 1.8;
                 }
                 
-                const sizeVariation = (Math.random() - 0.5) * (baseSize * 0.5); // Proportional variation
+                const sizeVariation = (Math.random() - 0.5) * (baseSize * 0.6);
                 piece.style.fontSize = (baseSize + sizeVariation) + 'rem';
                 
-                // Random animation direction
                 if (Math.random() > 0.5) {
                     piece.style.animationDirection = 'reverse';
                 }
@@ -874,7 +980,6 @@
             }
         }
 
-        // Function to update chess background height when content changes
         function updateBackgroundHeight() {
             const background = document.getElementById('chessBackground');
             const documentHeight = Math.max(
@@ -887,7 +992,6 @@
             background.style.height = documentHeight + 'px';
         }
 
-        // Initialize AOS
         AOS.init({
             duration: 800,
             easing: 'ease-out',
@@ -895,22 +999,18 @@
             offset: 50,
             delay: 0,
             anchorPlacement: 'top-bottom',
-            disable: window.innerWidth < 480 ? 'phone' : false // Disable on small phones for better performance
+            disable: window.innerWidth < 480 ? 'phone' : false
         });
 
-        // Initialize chess pieces on page load
         window.addEventListener('load', () => {
-            // Wait a bit for the page to fully render
             setTimeout(() => {
                 createChessPieces();
-                // Refresh AOS to detect new elements
                 setTimeout(() => {
                     AOS.refresh();
                 }, 100);
             }, 200);
         });
 
-        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -922,12 +1022,10 @@
                     });
                 }
                 
-                // Close mobile menu if open
                 closeMobileMenu();
             });
         });
 
-        // Mobile menu functionality
         const mobileToggle = document.getElementById('mobileMenuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
@@ -936,14 +1034,14 @@
             mobileMenu.classList.add('active');
             mobileMenuOverlay.classList.add('active');
             mobileToggle.innerHTML = '✕';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
         
         function closeMobileMenu() {
             mobileMenu.classList.remove('active');
             mobileMenuOverlay.classList.remove('active');
             mobileToggle.innerHTML = '☰';
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         }
         
         function toggleMobileMenu() {
@@ -955,11 +1053,8 @@
         }
         
         mobileToggle.addEventListener('click', toggleMobileMenu);
-        
-        // Close mobile menu when clicking on overlay
         mobileMenuOverlay.addEventListener('click', closeMobileMenu);
         
-        // Close mobile menu when clicking outside of it
         document.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
@@ -968,28 +1063,44 @@
             }
         });
 
-        // Enhanced parallax effect with bounds checking
+        // Enhanced parallax with multiple layers
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const chessBackground = document.getElementById('chessBackground');
-            
-            if (chessBackground) {
-                // Reduce parallax effect on mobile for better performance
-                const parallaxFactor = window.innerWidth <= 480 ? 0.1 : 0.2;
-                const parallaxOffset = scrolled * parallaxFactor;
-                chessBackground.style.transform = `translateY(${parallaxOffset}px)`;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const chessBackground = document.getElementById('chessBackground');
+                    
+                    if (chessBackground) {
+                        const parallaxFactor = window.innerWidth <= 480 ? 0.15 : 0.25;
+                        const parallaxOffset = scrolled * parallaxFactor;
+                        chessBackground.style.transform = `translateY(${parallaxOffset}px) scale(${1 + scrolled * 0.0001})`;
+                    }
+                    
+                    // Add subtle scroll-based effects to sections
+                    const sections = document.querySelectorAll('.section');
+                    sections.forEach((section, index) => {
+                        const rect = section.getBoundingClientRect();
+                        const scrollPercent = (window.innerHeight - rect.top) / window.innerHeight;
+                        
+                        if (scrollPercent > 0 && scrollPercent < 1.5) {
+                            const rotation = scrollPercent * 2;
+                            section.style.transform = `perspective(1000px) rotateX(${rotation * 0.5}deg)`;
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
 
-        // Regenerate pieces on window resize for better distribution
         let resizeTimer;
         window.addEventListener('resize', () => {
-            // Close mobile menu on resize
             if (window.innerWidth > 768) {
                 closeMobileMenu();
             }
             
-            // Debounce the resize event
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 createChessPieces();
@@ -999,7 +1110,6 @@
             }, 250);
         });
 
-        // Update background height when DOM content changes
         const observer = new MutationObserver(() => {
             updateBackgroundHeight();
         });
