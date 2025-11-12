@@ -80,7 +80,7 @@
             justify-content: center;
             overflow: hidden;
             z-index: 5;
-            margin-top: 100vh;
+            padding-top: 60px;
         }
 
         .trophy-image-container {
@@ -1056,35 +1056,20 @@
 
         // Trophy fade functionality
         window.addEventListener('scroll', () => {
+            const trophySection = document.getElementById('trophies');
             const drawingImage = document.getElementById('drawingImage');
             const photoImage = document.getElementById('photoImage');
-            const trophySection = document.getElementById('trophies');
             
             if (!drawingImage || !photoImage || !trophySection) return;
             
-            const sectionTop = trophySection.offsetTop;
-            const sectionHeight = trophySection.offsetHeight;
-            const scrollY = window.scrollY;
+            const sectionTop = trophySection.getBoundingClientRect().top + window.scrollY;
+            const scrollProgress = (window.scrollY - sectionTop) / (window.innerHeight * 2);
             
-            // Calculate progress through the trophy section (0 to 1)
-            const sectionScrollProgress = (scrollY - sectionTop) / sectionHeight;
+            let drawingOpacity = Math.max(0, 1 - scrollProgress);
+            let photoOpacity = Math.min(1, scrollProgress);
             
-            // Only apply fade when within the trophy section
-            if (sectionScrollProgress >= 0 && sectionScrollProgress <= 1) {
-                let drawingOpacity = Math.max(0, 1 - (sectionScrollProgress * 2));
-                let photoOpacity = Math.min(1, (sectionScrollProgress * 2) - 1);
-                
-                drawingImage.style.opacity = drawingOpacity;
-                photoImage.style.opacity = photoOpacity;
-            } else if (sectionScrollProgress < 0) {
-                // Before trophy section
-                drawingImage.style.opacity = 1;
-                photoImage.style.opacity = 0;
-            } else {
-                // After trophy section
-                drawingImage.style.opacity = 0;
-                photoImage.style.opacity = 1;
-            }
+            drawingImage.style.opacity = drawingOpacity;
+            photoImage.style.opacity = photoOpacity;
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
